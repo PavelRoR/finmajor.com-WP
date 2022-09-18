@@ -17,36 +17,54 @@
               </div>
               <div class="blog-navigation">
                     <div class="blog-navigation__col">
-                        <a href="/news/article-3.php" class="blog-navigation__link ">
+                    <?php $prevPost = get_previous_post();
+	                    if($prevPost) :?>
+                        <a href="<?= get_permalink($prevPost);?>" class="blog-navigation__link ">
                             Предыдущая <span>новость</span>
                         </a>
-                        <a href="/news/article-3.php" class="blog-preview">
+                        <a href="<?= get_permalink($prevPost);?>" class="blog-preview">
                             <span class="blog-preview__img">
-                                <img src="/img/news/article-3.jpg" alt="">
+                                <img src="<?= get_the_post_thumbnail_url($prevPost); ?>" alt="<?= get_the_title($prevPost); ?>">
                             </span>
                             <span class="blog-preview__info">
-                                <span class="date">09.03.22</span>
-                                <span class="h3">Хотите сохранить деньги? Покупайте недвижимость!</span>
-                                <span class="text">В стране разгорается кризис, экономические условия стремительно меняются, и рынок под них подстраивается...</span>
+                                <span class="date"><?= get_the_date('d.m.y',$prevPost); ?></span>
+                                <span class="h3">
+                                    <?php  
+                                        if (get_post_meta($prevPost->ID, 'title_exc', true)) {
+                                        echo get_post_meta($prevPost->ID, 'title_exc', true);
+                                        } 
+                                    ?>
+                                </span>
+                                <span class="text"><?= get_the_excerpt($prevPost); ?></span>
                             </span>
                         </a>
+                        <?php endif;?>
                     </div>
                     <div class="blog-navigation__col">
+                    <?php $nextPost = get_next_post();
+	                    if($nextPost) :?>
                         <div class="text-lg-end">
-                            <a href="/news/article-5.php" class="blog-navigation__link">
+                            <a href="<?= get_permalink($nextPost);?>" class="blog-navigation__link">
                                 Следующая <span>новость</span>
                             </a>
                         </div>
-                        <a href="/news/article-5.php" class="blog-preview">
+                        <a href="<?= get_permalink($nextPost);?>" class="blog-preview">
                             <span class="blog-preview__img">
-                                <img src="/img/news/article-5.jpg" alt="">
+                            <img src="<?= get_the_post_thumbnail_url($nextPost); ?>" alt="<?= get_the_title($nextPost); ?>">
                             </span>
                             <span class="blog-preview__info">
-                                <span class="date">14.06.22</span>
-                                <span class="h3">Запрет на выдачу кредитов</span>
-                                <span class="text">Банк России предложил механизм самозапрета на выдачу кредитов, чтобы обезопасить граждан от мошенничества. Для этого в личной кредитной истории появится галочка, нажав на которую, вы сами себе выпишите запрет на получение кредита от банка. Запрет может распространяться только на оформление через интернет, либо запрещать выдачу займа вообще.</span>
+                                <span class="date"><?= get_the_date('d.m.y',$nextPost); ?></span>
+                                <span class="h3">
+                                    <?php  
+                                        if (get_post_meta($nextPost->ID, 'title_exc', true)) {
+                                        echo get_post_meta($nextPost->ID, 'title_exc', true);
+                                        } 
+                                    ?>
+                                </span>
+                                <span class="text"><?= get_the_excerpt($nextPost); ?></span>
                             </span>
                         </a>
+                        <?php endif;?>
                     </div>
                 </div>
 
